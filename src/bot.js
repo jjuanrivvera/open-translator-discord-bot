@@ -9,6 +9,7 @@ const client = new Discord.Client();
 module.exports = {
     async loadCommands() {
         client.commands = new Discord.Collection();
+        client.cooldowns = new Discord.Collection();
 
         const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 
@@ -17,6 +18,7 @@ module.exports = {
             // set a new item in the Collection
             // with the key as the command name and the value as the exported module
             client.commands.set(command.name, command);
+            console.log(`${command.description} command loaded`);
         }
     },
 
@@ -30,6 +32,8 @@ module.exports = {
             } else {
                 client.on(event.name, (...args) => event.execute(...args, client));
             }
+
+            console.log(`${event.name} event loaded`);
         }
     },
 
