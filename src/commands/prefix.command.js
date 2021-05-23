@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Prefix',
 	cooldown: 6,
 	aliases: ['p'],
-	usage: "<prefix>",
+	usage: "prefix <prefix>",
 	requireArgs: 1,
 	example: "prefix +",
 	async execute(message, args, client, guildModel) {
