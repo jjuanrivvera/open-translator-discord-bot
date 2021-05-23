@@ -1,5 +1,4 @@
 const config = require('../config');
-const { PREFIX } = config;
 
 const { Collection } = require('discord.js');
 const { Guild } = require('../models');
@@ -19,7 +18,7 @@ module.exports = {
 
 		console.log(`${message.author.tag} in #${message.channel.name} sent: ${message.content}`);
 
-		const args = message.content.slice(PREFIX.length).trim().split(/ +/);
+		const args = message.content.slice(guildModel.prefix.length).trim().split(/ +/);
 		const command = args.shift().toLowerCase();
 
 		const { cooldowns } = client;

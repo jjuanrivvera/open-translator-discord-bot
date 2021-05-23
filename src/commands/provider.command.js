@@ -21,5 +21,5 @@ module.exports = {
 			.setDescription(`Provider changed`);
 
 		await message.channel.send(embed);
-	},
+	}
 };
