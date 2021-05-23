@@ -9,7 +9,7 @@ module.exports = {
 	cooldown: 6,
 	aliases: ['t'],
 	usage: "<language> <text>",
-	requireArgs: 2,
+	requireArgs: 1,
 	example: "en ¡Hola! Este es el traductor.",
 	async execute(message, args, client, guildModel) {
 		const arguments = message.content.slice(guildModel.prefix.length).trim().split(/ +/);
