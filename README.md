@@ -1,0 +1,1 @@
+# open-translator-discord-bot
