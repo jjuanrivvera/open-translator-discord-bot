@@ -26,7 +26,7 @@ module.exports = {
 				translatedText = await LibreTranslate.translate(textToTranslate, from, to);
 			}
 
-			translatedText = translatedText.replace(`<@! `, `<@!`);
+			translatedText = translatedText.replaceAll(`<@! `, `<@!`);
 			
 			const embed = new MessageEmbed()
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
