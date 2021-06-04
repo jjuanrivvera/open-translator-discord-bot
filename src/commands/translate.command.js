@@ -1,5 +1,3 @@
-const config = require('../config');
-
 const { MessageEmbed } = require('discord.js');
 const { LibreTranslate, GoogleTranslate } = require('../helpers');
 
@@ -27,6 +25,8 @@ module.exports = {
 			} else {
 				translatedText = await LibreTranslate.translate(textToTranslate, from, to);
 			}
+
+			translatedText = translatedText.replace(`<@! `, `<@!`);
 			
 			const embed = new MessageEmbed()
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
