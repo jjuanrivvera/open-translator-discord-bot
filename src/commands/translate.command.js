@@ -27,6 +27,7 @@ module.exports = {
 			}
 
 			translatedText = translatedText.replace(/<@! /g, `<@!`);
+			translatedText = translatedText.replace(/<@ & /g, `<@&`);
 			
 			const embed = new MessageEmbed()
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
