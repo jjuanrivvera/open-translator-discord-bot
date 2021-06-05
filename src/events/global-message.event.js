@@ -5,8 +5,12 @@ const { Guild } = require('../models');
 
 module.exports = {
 	name: 'message',
+    allowedGlobalCommands: [
+        "help",
+        "prefix"
+    ],
 	async execute(message, client) {
-		if (message.author.bot || !message.content.startsWith(`${config.PREFIX}help`)) return;
+		if (message.author.bot || !message.content.startsWith(`${config.PREFIX}`)) return;
 
         let guildModel = await Guild.findOne({
 			id: message.guild.id
@@ -24,6 +28,8 @@ module.exports = {
 
 		const args = message.content.slice(config.PREFIX.length).trim().split(/ +/);
 		const command = args.shift().toLowerCase();
+
+        if (!this.allowedGlobalCommands.includes(command)) return;
 
 		const { cooldowns } = client;
 
