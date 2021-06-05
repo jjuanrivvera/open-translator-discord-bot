@@ -2,15 +2,18 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'prefix',
-	description: 'Prefix',
+	description: 'Manage prefix',
 	cooldown: 6,
 	aliases: ['p'],
-	usage: "prefix <prefix>",
-	requireArgs: 1,
+	usage: "prefix [prefix]",
 	example: "prefix +",
 	async execute(message, args, client, guildModel) {
 		if (!args.length) {
-			return;
+			const embed = new MessageEmbed()
+				.setAuthor(client.user.username, client.user.displayAvatarURL())
+				.setDescription(`Current prefix: \`${guildModel.prefix}\``);
+
+			return message.channel.send(embed);
 		}
 
 		guildModel.prefix = args[0];

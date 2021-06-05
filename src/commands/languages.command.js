@@ -6,10 +6,11 @@ const { languages } = require('translation-google');
 
 module.exports = {
 	name: 'languages',
-	description: 'Languages',
+	description: 'Display available languages',
 	cooldown: 6,
 	requireArgs: 0,
-	usage: `languages`,
+	usage: `languages [provider]`,
+	example: `languages google`,
 	aliases: ['lan'],
 	async execute(message, args, client, guildModel) {
 		let availableLanguages = [];
