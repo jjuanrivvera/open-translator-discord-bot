@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'provider',
-	description: 'Provider',
+	description: 'Manage translate provider',
 	cooldown: 6,
 	usage: "provider <provider>",
 	supportedProviders: [

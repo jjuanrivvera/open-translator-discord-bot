@@ -3,7 +3,7 @@ const { LibreTranslate, GoogleTranslate } = require('../helpers');
 
 module.exports = {
 	name: 'translate',
-	description: 'Translate',
+	description: 'Translate a text',
 	cooldown: 6,
 	aliases: ['t'],
 	usage: "<language> <text>",

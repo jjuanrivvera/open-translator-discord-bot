@@ -14,7 +14,7 @@ module.exports = {
 
 		if (!guildModel) return;
 
-		if (!message.content.startsWith(guildModel.prefix)) return;
+		if (!message.content.startsWith(guildModel.prefix) && !message.content.startsWith(config.PREFIX)) return;
 
 		console.log(`${message.author.tag} in #${message.channel.name} sent: ${message.content}`);
 
