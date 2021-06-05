@@ -68,7 +68,7 @@ module.exports = {
 			discordCommand.execute(message, args, client, guildModel);
 		} catch (error) {
 			console.error(error);
-			message.channel.send('There was an error trying to execute that command!').then(message => message.delete({ timeout: 3000 }));
+			return message.channel.send('There was an error trying to execute that command!').then(message => message.delete({ timeout: 3000 }));
 		}
 	}
 };

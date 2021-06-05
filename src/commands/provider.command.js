@@ -5,11 +5,22 @@ module.exports = {
 	description: 'Provider',
 	cooldown: 6,
 	usage: "provider <provider>",
-	requireArgs: 1,
+	supportedProviders: [
+		"google",
+		"libre-translate"
+	],
+	requireArgs: 0,
 	example: "provider google|libre-translate",
 	async execute(message, args, client, guildModel) {
+		if (!args.length) {
+			const embed = new MessageEmbed()
+				.setAuthor(client.user.username, client.user.displayAvatarURL())
+				.setDescription(`Current provider: \`${guildModel.provider}\``);
 
-		if (args[0] !== 'google' && args[0] !== 'libre-translate') {
+			return message.channel.send(embed);
+		}
+
+		if (!this.supportedProviders.includes(args[0])) {
 			return message.channel.send(`Provider not supported`).then(msg => msg.delete({ timeout: 3000 }));
 		}
 
@@ -20,6 +31,6 @@ module.exports = {
 			.setAuthor(client.user.username, client.user.displayAvatarURL())
 			.setDescription(`Provider changed`);
 
-		await message.channel.send(embed);
+		return message.channel.send(embed);
 	}
 };
