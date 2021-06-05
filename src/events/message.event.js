@@ -8,11 +8,19 @@ module.exports = {
 	async execute(message, client) {
 		if (message.author.bot) return;
 
-		const guildModel = await Guild.findOne({
+		let guildModel = await Guild.findOne({
 			id: message.guild.id
 		});
 
-		if (!guildModel) return;
+		if (!guildModel) {
+			guildModel = await Guild.create({
+				id: message.guild.id,
+				name: message.guild.name,
+				prefix: config.PREFIX,
+				provider: "google",
+				autoTranslate: false
+			});
+		};
 
 		if (!message.content.startsWith(guildModel.prefix) && !message.content.startsWith(config.PREFIX)) return;
 
