@@ -10,5 +10,5 @@ module.exports = {
 			.setDescription(`Add me to your discord server [here](${INVITE_LINK})`);
 
 		return message.channel.send(embed);
-	},
+	}
 };
