@@ -6,9 +6,9 @@ const { Guild } = require('../models');
 module.exports = {
 	name: 'message',
 	async execute(message, client) {
-		if (message.author.bot) return;
+		if (message.author.bot || !message.content.startsWith(`${config.PREFIX}help`)) return;
 
-		let guildModel = await Guild.findOne({
+        let guildModel = await Guild.findOne({
 			id: message.guild.id
 		});
 
@@ -22,21 +22,12 @@ module.exports = {
 			});
 		};
 
-		if (!message.content.startsWith(guildModel.prefix)) return;
-
-		console.log(`${message.author.tag} in #${message.channel.name} sent: ${message.content}`);
-
-		const args = message.content.slice(guildModel.prefix.length).trim().split(/ +/);
+		const args = message.content.slice(config.PREFIX.length).trim().split(/ +/);
 		const command = args.shift().toLowerCase();
 
 		const { cooldowns } = client;
 
-		let discordCommand = client.commands.get(command)
-            || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
-
-		if (!discordCommand) {
-			discordCommand = client.commands.get('translate');
-		}
+		const discordCommand = client.commands.get(command);
 
 		if (!cooldowns.has(discordCommand.name)) {
             cooldowns.set(discordCommand.name, new Collection());
