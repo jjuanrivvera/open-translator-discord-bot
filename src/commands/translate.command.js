@@ -5,7 +5,6 @@ module.exports = {
 	name: 'translate',
 	description: 'Translate a text',
 	cooldown: 6,
-	aliases: ['t'],
 	usage: "<language> <text>",
 	requireArgs: 1,
 	example: "en ¡Hola! Este es el traductor.",
