@@ -6,5 +6,6 @@ module.exports = {
     LIBRE_TRANSLATE_API: process.env.LIBRE_TRANSLATE_API,
     LIBRE_TRANSLATE_KEY: process.env.LIBRE_TRANSLATE_KEY,
     PROVIDER: process.env.PROVIDER || 'libre-translate',
-    INVITE_LINK: process.env.INVITE_LINK
+    INVITE_LINK: process.env.INVITE_LINK,
+    OCR_URL: process.env.OCR_URL,
 };
