@@ -33,8 +33,11 @@ module.exports = {
             });
 
             if (response.data.error) {
+                message.channel.stopTyping();
                 console.log(data.error);
-                throw new Error();
+                return message.channel
+                    .send("Cannot extract image text")
+                    .then((msg) => msg.delete({ timeout: 3000 }));
             }
 
             const to = args[0];
