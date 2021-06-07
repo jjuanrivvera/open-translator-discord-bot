@@ -72,6 +72,7 @@ module.exports = {
             await message.channel.send(embed);
         } catch (error) {
             console.log(error);
+            message.channel.stopTyping();
             await message.channel
                 .send("Language not supported")
                 .then((msg) => msg.delete({ timeout: 3000 }));
