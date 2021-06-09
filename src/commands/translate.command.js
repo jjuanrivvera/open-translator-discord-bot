@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { languages } = require('translation-google');
 const { LibreTranslate, GoogleTranslate } = require('../helpers');
 
 module.exports = {
@@ -19,8 +20,13 @@ module.exports = {
 
 			let translatedText = null;
 
+			const embed = new MessageEmbed()
+				.setAuthor(message.author.username, message.author.displayAvatarURL());
+
 			if (guildModel.provider === 'google') {
-				translatedText = await GoogleTranslate.translate(textToTranslate, from, to);
+				const translation = await GoogleTranslate.translate(textToTranslate, from, to);
+				translatedText = translation.text;
+				embed.setFooter(`${languages[translation.from.language.iso.toLowerCase()]} (${translation.from.language.iso}) -> ${languages[to]} (${to})`);
 			} else {
 				translatedText = await LibreTranslate.translate(textToTranslate, from, to);
 			}
@@ -28,9 +34,7 @@ module.exports = {
 			translatedText = translatedText.replace(/<@! /g, `<@!`);
 			translatedText = translatedText.replace(/<@ & /g, `<@&`);
 			
-			const embed = new MessageEmbed()
-				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setDescription(translatedText);
+			embed.setDescription(translatedText);
 
 			await message.channel.send(embed);
 		} catch (error) {
