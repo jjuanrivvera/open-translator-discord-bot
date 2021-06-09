@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const { languages } = require('translation-google');
 const { 
     ImageToText,
     LibreTranslate,
