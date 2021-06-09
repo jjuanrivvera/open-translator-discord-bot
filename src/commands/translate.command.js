@@ -34,7 +34,7 @@ module.exports = {
 			translatedText = translatedText.replace(/<@! /g, `<@!`);
 			translatedText = translatedText.replace(/<@ & /g, `<@&`);
 			
-			embed.setDescription(translatedText);
+			embed.setDescription(translatedText + `\n[Jump to message](${message.url})`);
 
 			await message.channel.send(embed);
 		} catch (error) {
