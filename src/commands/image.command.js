@@ -40,13 +40,14 @@ module.exports = {
             const from = "auto";
             const to = args[0];
 
+            const embed = new MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL());
+
             try {
                 if (guildModel.provider === "google") {
-                    translatedText = await GoogleTranslate.translate(
-                        textToTranslate,
-                        from,
-                        to
-                    );
+                    const translation = await GoogleTranslate.translate(textToTranslate, from, to);
+                    translatedText = translation.text;
+                    embed.setFooter(`${languages[translation.from.language.iso.toLowerCase()]} (${translation.from.language.iso}) -> ${languages[to]} (${to})`);
                 } else {
                     translatedText = await LibreTranslate.translate(
                         textToTranslate,
@@ -59,9 +60,7 @@ module.exports = {
                 translatedText = translatedText.replace(/<@ /g, `<@`);
                 translatedText = translatedText.replace(/<@ & /g, `<@&`);
 
-                const embed = new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setDescription(translatedText);
+                embed.setDescription(translatedText);
 
                 return message.channel.send(embed);
             } catch (error) {
