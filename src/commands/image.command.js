@@ -1,3 +1,5 @@
+const sentry = require('../config/sentry');
+
 const { MessageEmbed } = require("discord.js");
 const { languages } = require('translation-google');
 const { 
@@ -32,6 +34,7 @@ module.exports = {
             try {
                 textToTranslate = await ImageToText.extractImageTextLambda(recognize);
             } catch (error) {
+                sentry.captureException(error);
                 textToTranslate = await ImageToText.extractImageText(recognize);
             }
 
@@ -65,16 +68,16 @@ module.exports = {
 
                 return message.channel.send(embed);
             } catch (error) {
-                console.log(error);
+                sentry.captureException(error);
                 return message.channel
                     .send("Language not supported")
                     .then((msg) => msg.delete({ timeout: 3000 }));
             }
         } catch (error) {
-            console.log(error);
+            sentry.captureException(error);
             message.channel.stopTyping();
             return message.channel
-                    .send(`Cannot extract image text: ${error.response.data.message}`);
+                    .send(`Cannot extract image text`);
         }
-    },
+    }
 };
