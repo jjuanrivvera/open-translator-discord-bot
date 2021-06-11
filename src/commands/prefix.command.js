@@ -24,5 +24,5 @@ module.exports = {
 			.setDescription(`Prefix changed`);
 
 		await message.channel.send(embed);
-	},
+	}
 };

@@ -54,5 +54,5 @@ module.exports = {
 		} else {
 			return message.channel.send(`Provider not supported`);
 		}
-	},
+	}
 };
