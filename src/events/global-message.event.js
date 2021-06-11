@@ -1,4 +1,5 @@
 const config = require('../config');
+const sentry = require('../config/sentry');
 
 const { Collection } = require('discord.js');
 const { Guild } = require('../models');
@@ -25,6 +26,8 @@ module.exports = {
 				autoTranslate: false
 			});
 		};
+
+		if (guildModel.prefix === config.PREFIX) return;
 
 		const args = message.content.slice(config.PREFIX.length).trim().split(/ +/);
 		const command = args.shift().toLowerCase();
@@ -72,7 +75,7 @@ module.exports = {
 		try {
 			discordCommand.execute(message, args, client, guildModel);
 		} catch (error) {
-			console.error(error);
+			sentry.captureException(error);
 			return message.channel.send('There was an error trying to execute that command!').then(message => message.delete({ timeout: 3000 }));
 		}
 	}

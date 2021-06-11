@@ -3,5 +3,5 @@ module.exports = {
 	description: 'Get response speed',
 	execute(message) {
 		message.channel.send(`Pong | 🏓 ${Date.now() - message.createdTimestamp}ms.`);
-	},
+	}
 };

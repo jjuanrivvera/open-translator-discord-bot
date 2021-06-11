@@ -1,3 +1,5 @@
+const sentry = require('../config/sentry');
+
 const { MessageEmbed } = require('discord.js');
 const { languages } = require('translation-google');
 const { LibreTranslate, GoogleTranslate } = require('../helpers');
@@ -38,8 +40,8 @@ module.exports = {
 
 			await message.channel.send(embed);
 		} catch (error) {
-			console.log(error);
+			sentry.captureException(error);
 			await message.channel.send("Language not supported").then(msg => msg.delete({ timeout: 3000 }));
 		}
-	},
+	}
 };
