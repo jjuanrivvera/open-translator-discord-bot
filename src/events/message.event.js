@@ -18,7 +18,7 @@ module.exports = {
         "prefix"
     ],
 	async execute(message, client) {
-		if (message.author.bot) return;
+		if (message.author.bot || !message.guild) return;
 
 		const guildModel = await this.getGuildModel(message.guild);
 
@@ -26,7 +26,12 @@ module.exports = {
 		let command = null;
 		let args = null;
 
-		if (!message.content.startsWith(guildModel.prefix)) {
+		if (message.content.startsWith(guildModel.prefix)) {
+			prefix = guildModel.prefix
+			
+			args = message.content.slice(prefix.length).trim().split(/ +/);
+			command = args.shift().toLowerCase();
+		} else if (message.content.startsWith(config.PREFIX)) {
 			prefix = config.PREFIX;
 
 			args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -34,10 +39,7 @@ module.exports = {
 
 			if (!this.allowedGlobalCommands.includes(command)) return;
 		} else {
-			prefix = guildModel.prefix
-			
-			args = message.content.slice(prefix.length).trim().split(/ +/);
-			command = args.shift().toLowerCase();
+			return;
 		};
 
 		const { member, channel, guild} = message;
