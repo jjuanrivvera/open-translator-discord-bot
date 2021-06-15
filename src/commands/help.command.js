@@ -4,6 +4,12 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'help',
 	description: 'Display help menu',
+	usage: "help [command]",
+	accessibility: "everyone",
+	clientPermissions: [
+		"SEND_MESSAGES",
+		"EMBED_LINKS"
+	],
 	async execute(message, args, client, guildModel) {
 		const { commands } = message.client;
 		
@@ -50,6 +56,7 @@ module.exports = {
 		if (command.usage) helpEmbed.addField(`**Usage:**`, `${guildModel.prefix}${command.usage}`);
 		if (command.requireArgs) helpEmbed.addField(`**Required Args:**`, `${command.requireArgs}`);
 		if (command.example) helpEmbed.addField(`**Example:**`, `${guildModel.prefix}${command.example}`);
+		if (command.accessibility) helpEmbed.addField(`**Accessibility:**`, `${command.accessibility}`);
 		
 		helpEmbed.addField(`**Cooldown:**`, `${command.cooldown || 5} second(s)`);
 

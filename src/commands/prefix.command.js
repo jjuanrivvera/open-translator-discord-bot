@@ -7,6 +7,11 @@ module.exports = {
 	aliases: ['p'],
 	usage: "prefix [prefix]",
 	example: "prefix +",
+	accessibility: "admin",
+	clientPermissions: [
+		"SEND_MESSAGES",
+		"EMBED_LINKS"
+	],
 	async execute(message, args, client, guildModel) {
 		if (!args.length) {
 			const embed = new MessageEmbed()

@@ -12,6 +12,11 @@ module.exports = {
 	usage: `languages [provider]`,
 	example: `languages google`,
 	aliases: ['lan'],
+	accessibility: "everyone",
+	clientPermissions: [
+		"SEND_MESSAGES",
+		"EMBED_LINKS"
+	],
 	async execute(message, args, client, guildModel) {
 		let availableLanguages = [];
 

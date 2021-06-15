@@ -11,6 +11,11 @@ module.exports = {
 	],
 	requireArgs: 0,
 	example: "provider google|libre-translate",
+	accessibility: "admin",
+	clientPermissions: [
+		"SEND_MESSAGES",
+		"EMBED_LINKS"
+	],
 	async execute(message, args, client, guildModel) {
 		if (!args.length) {
 			const embed = new MessageEmbed()

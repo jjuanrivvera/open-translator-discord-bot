@@ -1,8 +1,18 @@
 const sentry = require('../config/sentry');
 
-const { MessageEmbed } = require('discord.js');
-const { languages } = require('translation-google');
-const { LibreTranslate, GoogleTranslate } = require('../helpers');
+const {
+	MessageEmbed
+} = require('discord.js');
+const {
+	languages
+} = require('translation-google');
+const {
+	LibreTranslate,
+	GoogleTranslate
+} = require('../helpers');
+const {
+    Logger
+} = require("../util");
 
 module.exports = {
 	name: 'translate',
@@ -11,7 +21,12 @@ module.exports = {
 	usage: "<language> <text>",
 	requireArgs: 1,
 	example: "en ¡Hola! Este es el traductor.",
-	async execute(message, args, client, guildModel) {
+	accessibility: "everyone",
+	clientPermissions: [
+		"SEND_MESSAGES",
+		"EMBED_LINKS"
+	],
+	async execute(message, _, __, guildModel) {
 		const arguments = message.content.slice(guildModel.prefix.length).trim().split(/ +/);
 		const command = arguments.shift().toLowerCase();
 
@@ -34,14 +49,18 @@ module.exports = {
 			}
 
 			translatedText = translatedText.replace(/<@! /g, `<@!`);
+			translatedText = translatedText.replace(/<@ /g, `<@`);
 			translatedText = translatedText.replace(/<@ & /g, `<@&`);
-			
+
 			embed.setDescription(translatedText + `\n[Jump to message](${message.url})`);
 
 			await message.channel.send(embed);
 		} catch (error) {
+			Logger.log('error', error);
 			sentry.captureException(error);
-			await message.channel.send("Language not supported").then(msg => msg.delete({ timeout: 3000 }));
+			await message.channel.send("Language not supported").then(msg => msg.delete({
+				timeout: 3000
+			}));
 		}
 	}
 };

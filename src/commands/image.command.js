@@ -7,6 +7,9 @@ const {
     LibreTranslate,
     GoogleTranslate
 } = require("../helpers");
+const {
+    Logger
+} = require("../util");
 
 module.exports = {
     name: "image",
@@ -15,7 +18,12 @@ module.exports = {
     usage: "image <language> [link|attachment]",
     requireArgs: 1,
     example: "image en https://image.example.com",
-    async execute(message, args, client, guildModel) {
+    accessibility: "everyone",
+	clientPermissions: [
+		"SEND_MESSAGES",
+		"EMBED_LINKS"
+	],
+    async execute(message, args, _, guildModel) {
     
         const image = message.attachments.first();
         const recognize = image ? image.attachment : args[1];
@@ -34,6 +42,7 @@ module.exports = {
             try {
                 textToTranslate = await ImageToText.extractImageTextLambda(recognize);
             } catch (error) {
+                Logger.log('error', error);
                 sentry.captureException(error);
                 textToTranslate = await ImageToText.extractImageText(recognize);
             }
@@ -58,22 +67,20 @@ module.exports = {
                         from,
                         to
                     );
-                }
-
-                translatedText = translatedText.replace(/<@! /g, `<@!`);
-                translatedText = translatedText.replace(/<@ /g, `<@`);
-                translatedText = translatedText.replace(/<@ & /g, `<@&`);
+                }                
 
                 embed.setDescription(translatedText + `\n[Jump to message](${message.url})`);
 
                 return message.channel.send(embed);
             } catch (error) {
+                Logger.log('error', error);
                 sentry.captureException(error);
                 return message.channel
                     .send("Language not supported")
                     .then((msg) => msg.delete({ timeout: 3000 }));
             }
         } catch (error) {
+            Logger.log('error', error);
             sentry.captureException(error);
             message.channel.stopTyping();
             return message.channel
