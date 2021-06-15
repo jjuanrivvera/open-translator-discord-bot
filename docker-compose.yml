@@ -11,6 +11,15 @@ services:
     
   bot:
     image: node:lts-alpine
+    restart: always
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_PREFIX: ${DISCORD_PREFIX}
+      LIBRE_TRANSLATE_API: ${LIBRE_TRANSLATE_API}
+      LIBRE_TRANSLATE_KEY: ${LIBRE_TRANSLATE_KEY}
+      PROVIDER: ${PROVIDER}
+      MONGO_DSN: ${MONGO_DSN}
+      SENTRY_DSN: ${SENTRY_DSN}
     command: sh -c "node index.js"
     working_dir: /app
     volumes:

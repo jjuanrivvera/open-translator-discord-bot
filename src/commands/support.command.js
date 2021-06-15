@@ -3,6 +3,11 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'support',
 	description: 'Support bot developer',
+	accessibility: "everyone",
+	clientPermissions: [
+		"SEND_MESSAGES",
+		"EMBED_LINKS"
+	],
 	execute(message) {
 		const embed = new MessageEmbed()
 			.setTitle("Support Developer")
