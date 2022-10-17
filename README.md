@@ -21,7 +21,7 @@ tests/
 - guilds collection fields: id, name, prefix, provider, autoTranslate
 
 # Run
-- Run `copy .env.example .env` and fill the .env values
+- Execute `copy .env.example .env` and fill the .env values
 - Run with docker using the command: `docker-compose up -d`
 
 # Available commands
