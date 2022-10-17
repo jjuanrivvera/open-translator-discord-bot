@@ -21,8 +21,9 @@ tests/
 - guilds collection fields: id, name, prefix, provider, autoTranslate
 
 # Run
-- Execute `copy .env.example .env` and fill the .env values
-- Run with docker using the command: `docker-compose up -d`
+- Execute: `copy .env.example .env` and fill the .env values
+- Execute: `docker-compose up -d node` and `docker-compose exec node sh -c "npm install"` to install dependencies
+- Finally run with docker using the command: `docker-compose up -d`
 
 # Available commands
 
