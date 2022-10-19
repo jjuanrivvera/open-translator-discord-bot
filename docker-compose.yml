@@ -3,14 +3,14 @@ version: "3.7"
 services:
 
   node:
-    image: node:lts-alpine
+    image: node:16-alpine
     command: sh -c "tail -f /dev/null"
     working_dir: /app
     volumes:
       - ./:/app
     
   bot:
-    image: node:lts-alpine
+    image: node:16-alpine
     restart: always
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
@@ -24,3 +24,5 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
